@@ -1,0 +1,9 @@
+cd gpononu
+set whitelist phy_addr address FHTT0017eed0 password null action add slot 7 link  onu  type 5506-02-b
+set web_cfg_mng slot  link  onu  index 1 web_user admin web_password 123456 group admin
+cd epononu
+cd qinq
+set wancfg slot $slotportid $portaid $onuid index 1 mode internet type route 300 0 nat enable qos disable dsp pppoe proxy disable [usuario] [senha] null auto active enable
+set wanbind slot $slotportid $portaid $onuid index 1 entries 1 fe1
+apply wancfg slot $slotportid $portaid $onuid
+apply wanbind slot $slotportid $portaid $onuid

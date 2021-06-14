@@ -1,0 +1,52 @@
+##Listar Onus nao autorizadas
+
+cd gpononu
+show unauth list
+
+##Autorizar onu
+
+cd gpononu
+set authorization slot <slot_id> link <pon_id> type <modelo_onu> onuid 65 phy_id FHTT0017eed0
+set whitelist phy_addr address FHTT0017eed0 password null action add slot 7 link 9 onu 65 type 5506-02-b
+
+#Remover onu
+
+cd gpononu
+set whitelist phy_addr address FHTT0017eed0 password null action delete slot 7 link 9 onu 65 type 5506-02-b
+
+
+#SET Wan Service
+
+cd epononu
+cd qinq
+set wancfg slot 7 9 65 index 1 mode internet type route 300 0 nat enable qos disable dsp pppoe proxy disable teste teste null auto  active enable
+set wanbind slot 7 9 65 index 1 entries 1 fe1
+apply wancfg slot 7 9 65
+apply wanbind slot 7 9 65
+
+#nivel de sinal 
+
+cd gpononu
+show optic_module slot 7 link 9 onu 1
+
+
+show discovery slot all link all
+
+
+set wancfg slot 7 9 25 index 1 mode internet type bridge 300 0 nat enable qos disable dsp dhcp active disable
+
+set epon slot 7 pon 9 onu 25 port 1 service 1 vlan_mode tag null 33024 15
+set epon slot 7 pon 9 onu 25 port 1 service number 1
+apply onu 7 9 25 vlan
+ 
+  fe1
+  fe2
+  fe3
+  fe4
+  ssid1
+  ssid2
+  ssid3
+  ssid4
+
+
+//$script = preg_replace('/ ([0-9]{1,}) ([0-9]{1,}) ([0-9]{1,})/'," $onuinfo[0] $onuinfo[1] $onuinfo[2]",$script);
